@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <title>clock</title>
+
+    <script type="text/javascript">
+      function now() {
+        var clock = document.getElementById("clock");
+        /* document object - the root node of the HTML document
+            getElementById() - returns the element that has the ID attribute with the specified value */
+        var date = new Date();
+        /* new Date() - creates a new date object with the current date and time */
+        var calendar = zero(date.getFullYear(),2) + "-" + zero((date.getMonth()+1),2) + "-" + zero(date.getDate(),2);
+        /* getFullYear() - get the year as a four digit number(yyyy)
+            getMonth() - get the month as a number (0-11)
+            getDate() - get the day as a number (1-31) */
+        var time = 'AM';
+        var hour = zero(date.getHours(),2);
+        var minute = zero(date.getMinutes(),2);
+        var second = zero(date.getSeconds(),2);
+        /* getHours() - get the hour (0-23)
+            getMinutes() - get the minute (0-59)
+            getSeconds() - get the second (0-59) */
+
+        if(hour >= 12){
+        	time = 'PM';
+        	hour = zero(hour - 12,2);
+        }
+
+        clock.innerHTML = hour + ":" + minute + ":" + second + "<span style='font-size:60px;'>" + time + "</span>";
+        /* the innerHTML property sets or returns the HTML content (inner HTML) of an element
+            return value - a string, representing the HTML content of an element */
+
+        setTimeout("now()",1000);
+        /* the setTimeout() method calls a function or evaluates an expression after a specified number of milliseconds
+            1000 ms = 1 second
+            the function is only executed once. if you need to repeat execution, use the setInterval() method
+            use the clearTimeout() method to prevent the function from running */
+
+      }
+
+      function zero(number,digit) {
+        var zero = '';
+        number = number.toString();
+        /* the toString() method converts a number to a string */
+        if(number.length < digit){
+          for(i = 0; i < digit - number.length; i++){
+            zero += '0';
+          }
+          /* the length property returns the length of a string (number of characters)
+              the length of an empty string is 0 */
+        }
+        return zero + number;
+        /* the return statement stops the execution of a function and returns a value from that function */
+      }
+    </script>
+
+    <style media="screen">
+    body {
+      background-color: SeaShell;
+    }
+    #clock {
+      border : 3px solid RosyBrown;
+      width : 500px;
+      height : 200px;
+      line-height: 190px;
+      /* the line-height property specifies the height of a line */
+      color : RosyBrown;
+      font-size: 100px;
+      text-align: center;
+      /* the text-align property specifies the horizontal alignment of text in an element */
+      position: absolute;
+      /* the position property specifies the type of positioning method used for an element (static, relative, absolute, fixed, or sticky) */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      /* the transform property applies a 2D or 3D transformation to an element
+          this property allows you to rotate, scale, move, skew, etc., elements */
+    }
+    </style>
+  </head>
+
+  <body onload="now()">
+    <!-- the onload attribute fires when an object jas been loaded
+          onload is most often used within the <body> element to execute a script once a web page has completely loaded all content (including images, script files, CSS files, etc.)
+          however, it can be used on other elents as well
+          the onload attribute can be used to check the visitor's browser type and browser version, and load the proper version of the web page based on the information
+          the onload attribute can also be used to deal with cookies -->
+    <div id="clock">
+	  </div>
+  </body>
+</html>
